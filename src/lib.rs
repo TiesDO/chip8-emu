@@ -1,10 +1,26 @@
-
 #![allow(unused_variables)]
 use std::f64;
 use wasm_bindgen::prelude::*;
+use ram::Chip8Ram;
+
+mod ram;
 
 #[wasm_bindgen(start)]
 fn start() {
+    draw_smiley();
+    console_log("testing");
+}
+
+fn console_log(str: &str) {
+    use web_sys::console;
+
+    console::log_1(&str.into());
+}
+
+#[cfg(test)]
+mod ram_tests;
+
+fn draw_smiley() {
     let document = web_sys::window().unwrap().document().unwrap();
     let canvas = document.get_element_by_id("canvas").unwrap();
     let canvas: web_sys::HtmlCanvasElement = canvas
@@ -43,5 +59,5 @@ fn start() {
         .unwrap();
 
     context.stroke();
-}
 
+}
