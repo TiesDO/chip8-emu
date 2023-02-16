@@ -38,3 +38,39 @@ pub mod font {
 
 }
 
+pub mod debug {
+
+    pub fn print_bytes(bytes: &[u8], bytes_per_row: u8) {
+        let rows = bytes.len() / usize::from(bytes_per_row);
+        let remainder = bytes.len() - usize::from(bytes_per_row) * rows;
+        let mut i:usize = 0;
+
+        let mut header_i : u8 = 0;
+        while header_i < bytes_per_row {
+            header_i += 1;
+            print!("{:01$} ", header_i, 4);
+        }
+
+        print!("\n");
+
+        while i < rows + 1 {
+            let mut bpr = usize::from(bytes_per_row);
+
+            if i == rows {
+               bpr = remainder; 
+            }
+
+            let start = i * bpr;
+            let end = start + bpr;
+            
+            for (j, &byte) in bytes[start .. end].iter().enumerate() {
+                // print single byte in row
+                print!("{:#04x} ", byte);
+            }
+            
+            print!("\n");
+
+            i += 1;
+        }
+    }
+}

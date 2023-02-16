@@ -24,3 +24,5 @@ fn console_log(str: &str) {
 #[cfg(test)]
 mod ram_tests;
 
+#[cfg(test)]
+mod utils_tests;
